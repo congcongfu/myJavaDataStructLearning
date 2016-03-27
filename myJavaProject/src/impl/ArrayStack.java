@@ -1,9 +1,9 @@
-package test;
+package impl;
 
 import java.util.Arrays;
 
 import dataStruct.exception.EmptyCollectionException;
-import dataStruct.exception.StackADT;
+import interfaces.StackADT;
 
 public class ArrayStack<T> implements StackADT<T> {
 	private final int DEFAUL_CAPACITY = 100;
@@ -67,13 +67,13 @@ public class ArrayStack<T> implements StackADT<T> {
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return (top == 0);
 	}
 
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
-		return 0;
+		return top;
 	}
 
 }

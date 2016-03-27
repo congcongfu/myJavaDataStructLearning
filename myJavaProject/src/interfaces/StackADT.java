@@ -1,4 +1,4 @@
-package dataStruct.exception;
+package interfaces;
 
 public interface StackADT<T> {
 	/*
