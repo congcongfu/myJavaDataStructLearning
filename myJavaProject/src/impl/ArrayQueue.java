@@ -60,7 +60,11 @@ public class ArrayQueue<T> implements QueueADT<T> {
 	@Override
 	public T first() {
 		// TODO Auto-generated method stub
-		return null;
+		if(count == 0)
+			throw new IllegalStateException("Queue is empty: underflow");
+		else {
+			return queue[count -1];
+			}
 	}
 	
 	/*expand the queue size  by double*/
