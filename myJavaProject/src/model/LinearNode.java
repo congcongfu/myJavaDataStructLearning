@@ -50,6 +50,11 @@ public class LinearNode<T> {
 	public void setElement (T elem){
 		element = elem;
 	}
+	
+	// Sets the data stored in this node.
+	public String toString (){
+		return element.toString();
+	}	
 }
 
 
