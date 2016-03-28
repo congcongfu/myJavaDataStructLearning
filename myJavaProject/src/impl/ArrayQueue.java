@@ -53,6 +53,7 @@ public class ArrayQueue<T> implements QueueADT<T> {
 				newQueue[i] = queue[i];
 			}
 			front = (front + 1) % DEFAUL_CAPACITY;
+			queue = newQueue;
 			return (T) newQueue;
 			}
 	}
