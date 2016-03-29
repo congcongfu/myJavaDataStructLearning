@@ -30,7 +30,7 @@ public interface ListADT<T> extends Iterable<T> {
 	
 	/*
 	 * Returns a reference to the last element in this list
-	 * @return a reference ti the last element in this list
+	 * @return a reference to the last element in this list
 	 * */
 	public T last();
 	
