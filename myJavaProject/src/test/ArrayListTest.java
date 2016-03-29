@@ -17,7 +17,8 @@ public class ArrayListTest {
 		list.add(23);
 		System.out.println(list.size());
 		System.out.println(list.toString());
-		list.remove(3);
+		list.removes(3);
+		System.out.println(list.toString());
 		list.removeLast();
 		System.out.println(list.first());
 		System.out.println(list.last());
