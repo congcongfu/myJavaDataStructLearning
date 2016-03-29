@@ -4,8 +4,9 @@ import java.util.Iterator;
 
 import dataStruct.exception.ElemenNotFoundException;
 import interfaces.ListADT;
+import interfaces.UnorderedListADT;
 
-public class UnorderedList<T> implements ListADT<T>, Iterable<T> {
+public class UnorderedList<T> implements UnorderedListADT<T>, Iterable<T> {
 
 	private  static int DEFAULT_CAPACITY = 100;
 	private final static int NOT_FOUND = -1;
@@ -221,4 +222,104 @@ public class UnorderedList<T> implements ListADT<T>, Iterable<T> {
 		return result;
 	}
 
+	/*
+	 * Adds the specified element to the front of the list
+	 * @param element the element to the front of the list 
+	 * */
+	@Override
+	public void addToFront(T element) {
+		if(!isEmpty()){
+			if(size() == list.length)
+				expandCapacity();
+							
+			/*shift element up one */
+			for(int i = rear ; i > 0; i--){
+				list[i] = list[i -1];
+			}
+			/*insert element*/
+			list[0] = element;
+			rear++;
+			modCount++;
+		}else {
+			add(element);
+		}
+		
+		
+	}
+
+	/*
+	 * Adds the specified element to the rear of the list
+	 * @param element the element to the front of the list 
+	 * */
+	@Override
+	public void addToRear(T element) {
+		// TODO Auto-generated method stub
+		if(!isEmpty()){
+			if(size() == list.length)
+				expandCapacity();
+			/*insert element*/
+			list[rear] = element;
+			rear++;
+			modCount++;
+		}else {
+			add(element);
+		}
+		
+	}
+
+	/*
+	 * Adds the specified element after the specified target element
+	 * Throws an ElementNotFoundException if the target is not found
+	 * @param element the element to be added after the target element
+	 * @param target the target that the element is to be added after
+	 * */
+	@Override
+	public void addAfter(T element, T target) {
+		
+		if(size() == list.length)
+			expandCapacity();
+		int scan = 0;
+		
+		/*find the insertion point*/
+		while (scan < rear && !target.equals(list[scan]))
+			scan++;
+		if(scan == rear)
+			throw new ElemenNotFoundException("UnorderedList");
+		scan++;
+		
+		/*shift element up one */
+		for(int shift = rear; shift > scan; shift--){
+			list[shift] = list[shift -1];
+		}
+		
+		/*insert element*/
+		list[scan] = element;
+		rear++;
+		modCount++;
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
