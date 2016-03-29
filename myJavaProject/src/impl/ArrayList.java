@@ -2,7 +2,7 @@ package impl;
 
 import java.util.Arrays;
 import java.util.Iterator;
-
+import java.util.List;
 
 import dataStruct.exception.ElemenNotFoundException;
 import dataStruct.exception.NonComparableElementException;
@@ -101,14 +101,29 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 	}
 
 	/*
-	 * Removes and returns the specified element.
+	 * Removes all the specified elements in the list
+	 * @param element the element to be removed from the list
+	 * @return the remove list elements 
+	 * */
+	public String removes(T element){
+		String result = "";
+		while (contains(element)) {
+			T findElement = remove(element);
+			result += result.toString() + " ";
+		}
+		
+		return result;
+	}
+	
+	
+	/*
+	 * Removes one element and returns the specified element.
 	 * @param element the element to be removed and returned from the list
 	 * @return the remove element
 	 * @throws ELementNotFoundException if the element is not in the list
 	 * */
-	@Override
-	public T remove(T element) throws ElemenNotFoundException{
-		T result ;
+	public  T remove(T element) throws ElemenNotFoundException{
+		T result = null ;
 		int index = find(element);
 		
 		if(index == NOT_FOUND){
@@ -123,6 +138,7 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 		}
 		list[rear] = null;
 		modCount--;
+		
 		return result;
 	}
 
