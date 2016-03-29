@@ -70,7 +70,7 @@ public class ArrayQueue<T> implements QueueADT<T> {
 	
 	/*expand the queue size  by double*/
 	private void expand(){
-		queue = Arrays.copyOf(queue, queue.length * 2);
+		queue = (T[]) (new Object[DEFAUL_CAPACITY * 2]);
 		front = 0;
 		rear = count -1;
 		DEFAUL_CAPACITY *=2;
