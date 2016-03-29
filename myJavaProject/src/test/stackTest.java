@@ -9,6 +9,7 @@ import impl.ArrayQueue;
 import impl.CircularArrayQueue;
 import impl.LinkedQueue;
 import interfaces.StackADT;
+import model.Course;
 import model.ProgramOfStudy;
 
 public class stackTest {
@@ -18,8 +19,6 @@ public class stackTest {
 	 * Serialization;
 	 * */
 	public static void main(String[] args) {
-		
-		ProgramOfStudy programOfStudy = new ProgramOfStudy();
 		
 	}
 
