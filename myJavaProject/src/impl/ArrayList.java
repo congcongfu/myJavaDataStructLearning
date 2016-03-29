@@ -180,6 +180,8 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 		return (find(target) != NOT_FOUND);
 	}
 
+	/*Return true if the list contains no elements
+	 * */
 	@Override
 	public boolean isEmpty() {
 		
