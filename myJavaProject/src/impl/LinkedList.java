@@ -1,6 +1,10 @@
 package impl;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import org.omg.CORBA.NO_IMPLEMENT;
 
 import dataStruct.exception.ElemenNotFoundException;
 import dataStruct.exception.EmptyCollectionException;
@@ -191,10 +195,97 @@ public  class LinkedList<T> implements ListADT<T>, Iterable<T> {
 		return result;
 	}
 
+	
 	@Override
 	public Iterator<T> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/*
+	 * LinkedListIterator represents an iterator for a linked list of linear nodes
+	 * 
+	 * */
+	private class LinkedListIterator implements Iterable<T>{
+
+		private int iteratorModCount;
+		private LinearNode<T> current;
+		
+		
+		/*
+		 *Sets up this iteration use specified items
+		 *@param collection the collection the iterator will move over
+		 *@param size the integer size of the collection 
+		 * */
+		public LinkedListIterator() {
+			current = head;
+			iteratorModCount = modCount;
+		}
+		
+		/*
+		 * Returns true if this iterator has at least one more element
+		 * to deliver in the iteration
+		 * @return true if this iterator has at least one more element to
+		 * deliver in the iteration
+		 * 
+		 * @throws ConcurrentModificationException if the collection has 
+		 * changed while the iterator is in use
+		 * */
+		public boolean hasNext() throws ConcurrentModificationException{
+			if(iteratorModCount != modCount)
+				throw new ConcurrentModificationException();
+			return (current != null);
+		}
+		
+		/*
+		 *Returns the next element in the iteration. if there are no
+		 *more elements in the iteration, a NoSuchElementException is thrown
+		 *
+		 * @return the next element in the iteration
+		 * throws NoSuchElementExcption if the iterator is empty
+		 * */
+		public T next() throws NoSuchElementException{
+			if(!hasNext())
+				throw new NoSuchElementException();
+			T result = current.getElement();
+			current = current.getNext();
+			return result;
+			
+		}
+		
+		
+		/*
+		 * The remove operation is not supported.
+		 * @throws UnsupportedOperationException if the remove operation is called
+		 * */
+		public void remove() throws UnsupportedOperationException{
+			throw new UnsupportedOperationException();
+		}
+		
+		@Override
+		public Iterator<T> iterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
