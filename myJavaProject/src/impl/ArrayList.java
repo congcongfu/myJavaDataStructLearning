@@ -1,6 +1,7 @@
 package impl;
 
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -238,6 +239,69 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 		return result;
 	}
 
+	/*
+	 * ArrayListIterator iterator over the elements of an ArrayList
+	 * */
+	private class ArrayListIterator implements Iterable{
+
+		int iteratorModCount;
+		int current;
+		
+		/*
+		 * Set up this iterator using the specified modCount
+		 * 
+		 * @param modCount the current modification count for the ArrayList
+		 * */
+		public ArrayListIterator() {
+			iteratorModCount = modCount;
+			current = 0;
+		}
+
+		
+		/*
+		 * Returns true if the iterator has at least one more element
+		 * to deliver in the iteration
+		 * @return true if this iteration has at least one more element to deliver
+		 * in the iteration
+		 * @throws ConcurrentModificationException if the collection has changed
+		 * while the iterator is in use.
+		 * */
+		public boolean hasNext() throws ConcurrentModificationException{
+			if(iteratorModCount != modCount)
+				throw new ConcurrentModificationException();
+			return (current < rear);
+		}
+		
+		/*Returns the next element in the iteration. If there are no
+		 * more elements in the iteration, a NoSuchElementException is thrown
+		 * 
+		 * @return  the next element in the iteration
+		 * @throws NoSuchElementException if an element not found exception occurs
+		 * @throws ConcurrentModificationException if the collection has changed
+		 * */
+		public T next() throws ConcurrentModificationException{
+			if(!hasNext())
+				throw new ConcurrentModificationException();
+			current++;
+			return list[current - 1];
+		}
+		
+		/*
+		 * The remove operation is not supported in this collection.
+		 * 
+		 * @throws UnsupportedOperationException if the remove operation is called
+		 * */
+		public void remove() throws UnsupportedOperationException{
+			throw new UnsupportedOperationException();
+		}
+		
+		@Override
+		public Iterator iterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 }
 
 
