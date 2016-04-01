@@ -5,18 +5,24 @@ import impl.LinkedList;
 public class Test {
 
 	public static void main(String[] args) {
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		list.add(1);
-		list.add(3);
-		list.add(4);
-		list.add(6);
-		System.out.println(list.size());
-		System.out.println(list.first());
-		System.out.println(list.last());
-		list.removeFirst();
-	    list.remove(3);
-		System.out.println(list.contains(0));
-		System.out.println(list.toString());
+		
+		String name = "EricFu";
+		String first = name.substring(0, 2);
+		String last = name.substring(name.length() -2, name.length());
+		name = first+"***"+last;
+		System.out.println(first);
+		System.out.println(last);
+		System.out.println(name);
+		
+		
+	}
+	public static int sum(int num){
+		int result;
+		if(num == 1)
+			result = 1;
+		else 
+			result = num * sum(num -1);
+		return result;
 		
 	}
 
