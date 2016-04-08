@@ -18,7 +18,7 @@ public class TowersOfHanoi {
 	 * Move the disks from tower 1 to tower 3 using tower 3 
 	 * */
 	public void solve(){
-		
+		moveTower(totalDisks, 1, 3, 2);
 	}
 	
 	/*
@@ -32,12 +32,15 @@ public class TowersOfHanoi {
 	 * @param temp  the temporary tower
 	 * */
 	public void moveTower(int numDisks, int star, int end, int temp){
+//		System.out.println("numDisks = "+numDisks +" star = "+star+ " end ="+end + " temp " +temp);
 		if(numDisks ==1)
 			moveOneDisk(star, end);
 		else {
 			moveTower(numDisks -1, star, temp ,end );
 			moveOneDisk(star, end);
+//			System.out.println("numDisks1 = "+numDisks);
 			moveTower(numDisks -1, temp, end, star);
+//			System.out.println("numDisks2 = "+numDisks);
 		}
 	}
 	
