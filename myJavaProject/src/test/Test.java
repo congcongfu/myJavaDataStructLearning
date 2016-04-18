@@ -1,18 +1,17 @@
 package test;
 
 import impl.LinkedList;
+import model.Sort;
 
 public class Test {
 
 	public static void main(String[] args) {
 		
-		String name = "EricFu";
-		String first = name.substring(0, 2);
-		String last = name.substring(name.length() -2, name.length());
-		name = first+"***"+last;
-		System.out.println(first);
-		System.out.println(last);
-		System.out.println(name);
+		int [] array = { 7,4,3};
+		Sort.mergeSort(array, 0, array.length-1);
+		for(int i=0; i< array.length; i++){
+			System.out.println(array[i]);
+		}
 		
 		
 	}

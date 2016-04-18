@@ -256,8 +256,11 @@ public class Sort {
 			void mergeSort(T[] data, int min, int max){
 		if(min < max){
 			int mid  = (min + max) / 2;
+			System.out.println("mid1= "+mid);
 			mergeSort(data, min, mid);
+			System.out.println("mid2= "+mid);
 			mergeSort(data, mid+1, max);
+			System.out.println("mid3= "+mid);
 			merge(data, min, mid, max);
 		}
 	}
@@ -336,8 +339,14 @@ public class Sort {
 	 * @param last the ending index of the last subarray
 	 * */
 	private static void merge(int[] data, int first, int mid, int last){
-		int[] temp = (int []) new int[data.length];
+		for(int i = 0; i < data.length; i++){
+			System.out.println(data[i]);
+		}
+		System.out.println();
+		System.out.println("first = "+first);
 		System.out.println("mid = "+mid);
+		System.out.println("last = "+last);
+		int[] temp = (int []) new int[data.length];
 		int first1 = first, last1 = mid; //endpoints of first subarray
 		int first2 = mid+1, last2 = last;  //endpoints of second subarray
 		int index = first1;  //next index open in temp array
@@ -363,6 +372,7 @@ public class Sort {
 		
 		//Copy remaining elements from second subarray, if any
 		while(first2 <= last2){
+			System.out.println("first2="+first2);
 			temp[index] = data[first2];
 			first2++;
 			index++;
