@@ -1,6 +1,10 @@
 package model;
 
 
+import java.awt.Robot;
+import java.util.Iterator;
+
+import dataStruct.exception.ElemenNotFoundException;
 import impl.LinkedBinaryTree;
 
 /*
@@ -96,6 +100,42 @@ public class BinaryTreeNode<T> {
 	public void setLeft(BinaryTreeNode<T>  node){
 		left = node;
 	}
+	
+	/*
+	 * Returns a reference to the specified target element if it is found 
+	 * in the binary tree. Throws a NoSuchElementException if the specified target element if not found in the binary tree
+	 * 
+	 * @param targetElement the element being sought in this tree
+	 * @return a reference to the specified target
+	 * @throws ElementNOtFoundException if an element not found exception occurs
+	 * */
+	public T find(T targetElement, BinaryTreeNode<T> root) throws ElemenNotFoundException{
+		BinaryTreeNode<T> current = findAgain(targetElement, root);
+		if(current == null)
+			throw new ElemenNotFoundException("Binary tree");
+		return (current.element);
+	}
+	
+	/*
+	 * Returns a reference to the specified target element if it is
+	 * found in this binary tree
+	 * @param targetElement the element being sought in this tree
+	 * @param next the element to begin searching from 
+	 * */
+	private BinaryTreeNode<T> findAgain(T targetElement, BinaryTreeNode<T> next){
+		
+		if(next == null)
+			return null;
+		if(next.element.equals(targetElement))
+			return next;
+		
+		BinaryTreeNode<T> temp = findAgain(targetElement, next.left);
+		if(temp == null)
+			temp = findAgain(targetElement, next.right);
+		return temp;
+		
+	}
+	
 	
 }
 
