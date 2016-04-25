@@ -19,7 +19,7 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> , Iterable<T>{
 	}
 	 
 	 /*
-	  * Create a bianry tree with the specified element as its root
+	  * Create a binary tree with the specified element as its root
 	  * @param element the element that will become the root of the binary tree
 	  * */
 	 public LinkedBinaryTree(T element){
@@ -53,28 +53,60 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> , Iterable<T>{
 		return root;
 	}
 
+	/*
+	 *Returns true if the tree contains no elements
+	 *@return true if the tree contains no elements
+	 * */
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		modCount = root.numChildren();
+		return (modCount == 0);
 	}
 
+	/*
+	 * Returns a number represents the size of the tree
+	 * @return a number represents the size of the tree
+	 * */
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		modCount = root.numChildren();
+		return modCount;
 	}
 
+	/*
+	 * Returns true if the node of the tree contains the specified elements
+	 * @return true if the node of the tree contains the specified elements
+	 * */
 	@Override
 	public boolean contains(T targetElement) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return findAgain(targetElement, root);
+	}
+	
+	/*
+	 * Returns a reference to the specified target element if it is
+	 * found in this node of tree
+	 * @param targetElement the element being sought in this tree
+	 * */
+	private boolean findAgain(T targetElement, BinaryTreeNode<T> root){
+		if(root == null)
+			return false;
+		if(root.getElement() == targetElement)
+			return true;
+		return findAgain(targetElement, root.getLeft()) || findAgain(targetElement, root.getRight());
 	}
 
+	/*
+	 * Returns true if the node of the tree contains the specified elements
+	 * @returns true if the tree contains the specified elements
+	 * */
 	@Override
 	public T find(T targetElement) {
-		// TODO Auto-generated method stub
-		return null;
+		if(contains(targetElement))
+		              return targetElement;
+		else 
+			return null;
+		
 	}
 
 	@Override

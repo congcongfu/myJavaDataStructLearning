@@ -1,9 +1,5 @@
 package model;
 
-
-import java.awt.Robot;
-import java.util.Iterator;
-
 import dataStruct.exception.ElemenNotFoundException;
 import impl.LinkedBinaryTree;
 
@@ -11,8 +7,8 @@ import impl.LinkedBinaryTree;
  * BinaryTreeNode represents a node in a binary tree with a left and right child
  * */
 public class BinaryTreeNode<T> {
-	protected T element;
-	protected BinaryTreeNode<T> right, left;
+	private T element;
+	private BinaryTreeNode<T> right, left;
 	
 	/*
 	 * 
