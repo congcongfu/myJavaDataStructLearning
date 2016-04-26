@@ -1,8 +1,12 @@
 package impl;
 
+import java.awt.geom.CubicCurve2D;
 import java.util.Iterator;
 
+import javax.xml.soap.Node;
+
 import dataStruct.exception.ElemenNotFoundException;
+import dataStruct.exception.EmptyCollectionException;
 import dataStruct.exception.NonComparableElementException;
 import interfaces.BinarySearchTreeADT;
 import model.BinaryTreeNode;
@@ -58,13 +62,67 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 	@Override
 	public boolean contains(T targetElement) {
 		// TODO Auto-generated method stub
-		return false;
+		return (find(targetElement) != null);
 	}
 
+	/**
+	 * Find the first element that matches the specified target
+	 * element from the binary search tree and returns a reference to it.
+	 * Throws a ElementNotFoundException if the specified target
+	 * element is not found in the binary search tree
+	 * @param targetElement the element being sought in the binary search tree
+	 * @throws ElementNotFoundException if the target element is not found
+	 * */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public T find(T targetElement) {
-		// TODO Auto-generated method stub
-		return null;
+	public T find(T targetElement) throws ElemenNotFoundException {
+		T result = null;
+		if(isEmpty())
+			throw new EmptyCollectionException("LinkedBinarySearchTree");
+		else{
+			BinaryTreeNode<T> parent = null;
+			if(((Comparable<T>)targetElement).equals(root.getElement())){
+				result = root.getElement();
+			}else {
+				parent = root;
+				if(((Comparable)targetElement).compareTo(root.getElement()) < 0)
+					result = findAgain(targetElement, root.getLeft(), parent);
+				else 
+					result = findAgain(targetElement, root.getRight(), parent);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Finds the first element that matches the specified target element from the binary search tree
+	 * and returns a reference to it. Throws an ElementNotFoundExcption if the specified target
+	 * element is not found in the binary search tree
+	 * @param targetElement the element being sought in the binary search tree
+	 * @param node the node from which  to search
+	 * @param parent the parent of the node from which to search
+	 * @throws ElmementNotFoundException if the target element is not found
+	 * */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private T findAgain(T targetElement, BinaryTreeNode<T> node, BinaryTreeNode<T> parent) 
+				throws ElemenNotFoundException{
+		T result = null;
+		
+		if(node == null)
+			throw new ElemenNotFoundException("LinkedBinarySearchTree");
+		else{
+			if(((Comparable<T>)targetElement).equals(node.getElement())){
+				result = node.getElement();
+			}else {
+				parent = node;
+				if(((Comparable)targetElement).compareTo(node.getElement()) < 0)
+					result = findAgain(targetElement, node.getLeft(), parent);
+				else {
+					result = findAgain(targetElement, node.getRight(), parent);
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -127,6 +185,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 	 * equal elements are added to the right
 	 * @param element the element to be added to the binary search tree
 	 * */
+	@SuppressWarnings("unchecked")
 	private void addElemetn(T element, BinaryTreeNode<T> node) {
 		Comparable<T> comparableElement = (Comparable<T>) element;
 		
@@ -156,6 +215,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 	 * @param targetElement the element being sought in the binary search tree
 	 * @throws ElementNotFoundException if the target element is not found
 	 * */
+	@SuppressWarnings("unchecked")
 	@Override
 	public T removeElement(T targetElement) throws ElemenNotFoundException{
 		T result = null;
@@ -171,7 +231,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 				else{
 					root = new BinaryTreeNode<T>(temp.getElement());
 					root.setLeft(temp.getLeft());
-					root.setRight(temp.getRight()    );
+					root.setRight(temp.getRight());
 				}
 				modCount--;
 			}
@@ -258,39 +318,146 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 		return result;
 	}
 
-	private BinaryTreeNode<T> replace(BinaryTreeNode<T> root2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	/**
+	 * Removes elements that match the specified target element from
+	 * the binary search tree. Throws a ElementNotFoundException if 
+	 * the specified target element is not found in this tree
+	 * @param targetElement the element being sought in the binary search tree
+	 * @throws ElementNotFoundException if the target element is not found
+	 * */
 	@Override
-	public void removeAllOccurenes(T targetElement) {
-		// TODO Auto-generated method stub
+	public void removeAllOccurenes(T targetElement)  throws ElemenNotFoundException{
+		removeElement(targetElement);
+		try{
+			while (contains((T)targetElement))
+				removeElement(targetElement);		
+		}catch(Exception ElemenNotFoundException){
+			System.out.println("No more element");
+		}
 		
 	}
 
+	/**
+	 * Removes the node with the least value from the binary search
+	 * tree and returns a reference to its element. Throws an EmptyCollectionException if
+	 * this tree is empty
+	 * @return a reference to the node with the least value
+	 * @throws EmptyCollectionException if the tree is empty
+	 * */
 	@Override
-	public T removeMin() {
-		// TODO Auto-generated method stub
-		return null;
+	public T removeMin() throws EmptyCollectionException {
+		T result = null;
+		if(isEmpty())
+			throw new EmptyCollectionException("LinkedBinarySearchTree");
+		else{
+			if(root.getLeft() == null){
+				result = root.getElement();
+				root = root.getRight();
+			}else{
+				BinaryTreeNode<T> parent = root;
+				BinaryTreeNode<T> currnet = root.getLeft();
+				while (currnet.getLeft() != null) {
+					parent = currnet;
+					currnet = currnet.getLeft();
+				}
+				result = currnet.getElement();
+				parent.setLeft(currnet.getRight());
+			}
+			modCount--;
+		}
+		return result;
 	}
 
+	/**
+	 * Removes the node with biggest value from the binary search
+	 * tree and returns a reference to its element. Throws an EmptyCollectionException if
+	 * this tree and returns a reference to its element. Throws an EmptyCollectionException if
+	 * this tree is empty
+	 * @return a reference to the node with the least value
+	 * @throws EmptyCollectionException if the tree is empty
+	 * */
 	@Override
-	public T removeMax() {
-		// TODO Auto-generated method stub
-		return null;
+	public T removeMax() throws EmptyCollectionException{
+		T result = null;
+		if(isEmpty())
+			throw new EmptyCollectionException("LinkedBinarySearchTree");
+		else {
+			if(root.getRight() != null){
+				result = root.getElement();
+				root = root.getLeft();
+			}else{
+				BinaryTreeNode<T> parent = root;
+				BinaryTreeNode<T> current = root.getRight();
+				while(current.getRight() != null){
+					parent = current;
+					current = current.getRight();
+				}
+				result = current.getElement();
+				parent.setRight(current.getLeft());
+			}
+			modCount--;
+		}
+		return result;
 	}
 
+	/**
+	 * Find the node with least value from the binary search
+	 * tree and returns a reference to its element. Throws an EmptyCollectionException if
+	 * this tree and returns a reference it its element. Throws an EmptyCollectionException if
+	 * this tree is empty
+	 * @return a reference to the node with the least value
+	 * @throws EmptyCollectionException if the tree is empty
+	 * */
 	@Override
-	public T findMin() {
-		// TODO Auto-generated method stub
-		return null;
+	public T findMin() throws EmptyCollectionException{
+		T result = null;
+		if(isEmpty())
+			throw new EmptyCollectionException("LinedBinarySearchTree");
+		else{
+			if(root.getLeft() != null){
+				result = root.getElement();
+				root = root.getLeft();
+			}else{
+				BinaryTreeNode<T> parent = root;
+				BinaryTreeNode<T> current = root.getLeft();
+				while (current.getLeft() != null) {
+					parent = current;
+					current = current.getLeft();
+				}
+				result = current.getElement();
+			}
+		}
+		return result;
 	}
 
+	/**
+	 * Find the node with biggest value from the binary search tree and 
+	 * returns a reference to its element. Throws an EmptyCollectionException if
+	 * this tree is empty
+	 * @return a reference to the node with the least value
+	 * @throws EmptyCollectionExcption if the tree is empty
+	 * */
 	@Override
-	public T findMax() {
-		// TODO Auto-generated method stub
-		return null;
+	public T findMax() throws EmptyCollectionException {
+		T result = null;
+		if(isEmpty())
+			throw new EmptyCollectionException("LinkedBinarySearchTree");
+		else {
+			if(root.getRight() != null){
+				result = root.getElement();
+				root = root.getRight();
+			}else {
+				BinaryTreeNode<T> parent = root;
+				BinaryTreeNode<T> current = root.getRight();
+				while (current.getRight() != null) {
+					parent = current;
+					current = current.getRight();
+				}
+				result = current.getElement();
+			}
+		}
+		return result;
 	}
 
 }
