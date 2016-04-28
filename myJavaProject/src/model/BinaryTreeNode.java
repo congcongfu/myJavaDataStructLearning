@@ -7,7 +7,7 @@ import impl.LinkedBinaryTree;
  * BinaryTreeNode represents a node in a binary tree with a left and right child
  * */
 public class BinaryTreeNode<T> {
-	private T element;
+	protected T element;
 	private BinaryTreeNode<T> right, left;
 	
 	/*
