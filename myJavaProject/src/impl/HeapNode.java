@@ -5,8 +5,6 @@ import model.BinaryTreeNode;
 public class HeapNode<T> extends BinaryTreeNode<T> {
 
 	protected HeapNode<T> parent;
-	private T element;
-	
 	/**
 	 * Creates a new heap node with the specified data
 	 * @param obj the data to be contained within the new heap node

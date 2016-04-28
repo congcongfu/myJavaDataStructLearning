@@ -43,7 +43,7 @@ public class LinkedHeap<T> implements HeapADT<T> {
 
 	@Override
 	public T find(T targetElement) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -125,7 +125,7 @@ public class LinkedHeap<T> implements HeapADT<T> {
 	}
 	
 	/**
-	 * Reorders this heap after adding a node
+	 * Reorders this heap after adding a node to the heap
 	 * */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void heapifyAdd() {
