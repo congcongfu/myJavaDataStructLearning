@@ -1,10 +1,7 @@
 package impl;
 
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.List;
-
 import dataStruct.exception.ElemenNotFoundException;
 import dataStruct.exception.NonComparableElementException;
 import interfaces.ListADT;
@@ -28,6 +25,7 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 	 * Creates an empty list using the specified capacity
 	 * @param initialCapacity the integer value of the size of the array list
 	 * */
+	@SuppressWarnings("unchecked")
 	public ArrayList(int initialCapacity){
 		rear = 0;
 		list = (T[]) (new Object[initialCapacity]);
@@ -37,6 +35,7 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 	/*
 	 * Expand the capacity of the list twice
 	 * */
+	@SuppressWarnings("unchecked")
 	private void expandCapacity(){
 		list = (T[]) (new Object[DEFAULT_CAPACITY * 2]);
 		rear = modCount -1;
@@ -51,6 +50,7 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 	public void add(T element){
 		if (!(element instanceof Comparable)) 
 			throw new NonComparableElementException("OrderedList");
+		@SuppressWarnings("unchecked")
 		Comparable<T> comparableElement = (Comparable<T>) element;
 		
 		if( size() == list.length)
@@ -108,9 +108,9 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 	 * */
 	public String removes(T element){
 		String result = "";
-		while (contains(element)) {
+		while (contains(element)) { 
 			T findElement = remove(element);
-			result += result.toString() + " ";
+			result += findElement.toString() + " ";
 		}
 		
 		return result;
@@ -242,6 +242,7 @@ public  class ArrayList<T> implements ListADT<T>, Iterable<T> {
 	/*
 	 * ArrayListIterator iterator over the elements of an ArrayList
 	 * */
+	@SuppressWarnings({ "unused", "rawtypes" })
 	private class ArrayListIterator implements Iterable{
 
 		int iteratorModCount;
