@@ -42,7 +42,7 @@ public class ArrayShell {
 		
 		int h = 1;      //find the initial value of h
 		while(h < count/ 3)
-			h= h*3 +1;
+			h = h * 3 +1;
 		
 		while(h > 0){     
 			for(outer = h; outer < count; outer++){
