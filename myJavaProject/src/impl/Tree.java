@@ -1,6 +1,8 @@
 package impl;
 
 
+import java.util.Stack;
+
 import dataStruct.exception.ElemenNotFoundException;
 import model.Node;
 
@@ -24,6 +26,20 @@ public class Tree {
 				return false;
 		}
 		return (current != null);
+	}
+	
+	
+	public Node findNode(int value){
+		Node current = root;
+		while(current.getData() != value){
+			if(value < current.getData())
+				current = current.getLeftChild();
+			else 
+				current = current.getRightChild();
+			if(current == null)
+				return null;
+		}
+		return current;
 	}
 	
 	/**
@@ -76,10 +92,10 @@ public class Tree {
 	 * Deletes the specified data in the tree
 	 * @param int the targetElement
 	 * */
-	public void delete(int element){
+	public boolean delete(int element){
 		if(!find(element)){
 			System.out.println("The element does not exist!");
-			return;
+			return false;
 		}
 			
 			
@@ -97,7 +113,7 @@ public class Tree {
 				current = current.getRightChild();
 			}
 			if(current == null)
-				return;
+				return false;
 		}
 		
 		/*Delete element without children*/
@@ -139,6 +155,7 @@ public class Tree {
 				parent.setRightChild(successor);
 			successor.setLeftChild(current.getLeftChild());
 		}
+		return true;
 	}
 	
 	/**
@@ -195,6 +212,80 @@ public class Tree {
 		return successor;
 	}
 	
+	/**
+	 * 
+	 * */
+	public void traverse(int traverseType){
+		switch (traverseType) {
+		case 1: System.out.println("\nPreorder traversal: ");
+			preOrder(root);
+			break;
+
+		case 2: System.out.println("\nInorder traversal: ");
+			inOrder(root);
+			break;
+		case 3: System.out.println("\nPostorder traversal: ");
+	  		postOrder(root);
+	  		break;
+		}
+		
+		System.out.println();
+	}
+
+	private void postOrder(Node root) {
+		if(root != null){
+			postOrder(root.getLeftChild());
+			postOrder(root.getRightChild());
+			System.out.println(root.getData() + " ");
+		}
+	}
+
+	private void preOrder(Node root) {
+		if(root != null){
+			System.out.println(root.getData() + " ");
+			preOrder(root.getLeftChild());
+			preOrder(root.getRightChild());
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void displayTree(){
+		Stack globalStack = new Stack();
+		globalStack.push(root);
+		int nBlanks = 32;
+		boolean isRowEmpty = false;
+		System.out.println("............................................");
+		while(!isRowEmpty){
+			Stack localStack = new Stack();
+			isRowEmpty = true;
+			
+			for(int i = 0; i < nBlanks; i++)
+				System.out.println(' ');
+			while(!globalStack.isEmpty()){
+				Node temp = (Node) globalStack.pop();
+				if(temp != null){
+					System.out.println(temp.getData());
+					localStack.push(temp.getLeftChild());
+					localStack.push(temp.getRightChild());
+					
+					if(temp.getLeftChild() != null ||
+							temp.getRightChild() != null)
+						isRowEmpty = false;
+				}else{
+					System.out.println("---");
+					localStack.push(null);
+					localStack.push(null);
+				}
+				for(int j = 0; j < nBlanks *2 -2; j++)
+					System.out.println(' ');
+			}      //end while globalStack not empty
+			System.out.println();
+			nBlanks /= 2;
+			while(!localStack.isEmpty())
+				globalStack.push(localStack.pop());
+		}
+		System.out.println("...........................................................");
+	}// end displayTree
 }
 
 
