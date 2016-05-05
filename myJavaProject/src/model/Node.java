@@ -39,6 +39,15 @@ public class Node {
 	}
 
 	/**
+	 * Displays the node
+	 * */
+	public void displayNode(){
+		System.out.println("{");
+		System.out.println(data);
+		System.out.println("}");
+	}
+	
+	/**
 	 * Sets the value of the data;
 	 * */
 //	public void setData(int element){
