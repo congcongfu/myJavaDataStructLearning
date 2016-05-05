@@ -80,7 +80,11 @@ public class ArrayIns {
 		return theArray[right -1];
 	}
 
-
+	/**
+	 * Returns a number to represents the number in the array which is less than the pivot
+	 * and reorder the array
+	 * @returns Integer 
+	 * */
 	private int partitionIt(int left, int right, int pivot) {
 		int leftPtr = left;
 		int rightPtr = right;
