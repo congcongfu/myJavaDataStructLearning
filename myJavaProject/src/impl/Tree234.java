@@ -45,9 +45,41 @@ public class Tree234 {
 		curNode.insertItem(tempItem);        //insert new DataItem
 	}
 
-	private void spilt(Node_3 thisNOde) {
-		DataItem itemA, itemB;
+	/**
+	 * Removes items from this node 
+	 * remove children from this node
+	 * */
+	private void spilt(Node_3 thisNode) {
+		DataItem itemB, itemC;
 		Node_3 parent, child2, child3;
+		int itemIndex;
+		
+		itemC = thisNode.removeItem();    
+		itemB = thisNode.removeItem();
+		child2 = thisNode.disconnectChid(2);
+		child3 = thisNode.disconnectChid(3);
+		
+		Node_3 newRight = new Node_3();
+		
+		if(thisNode == root){
+			root = new Node_3();
+			parent = root;
+			root.connectChild(0, thisNode);
+		}
+		else
+			parent = thisNode.getParent();
+		itemIndex = parent.insertItem(itemB);
+		int n = parent.getNumItems();
+		
+		for(int j = n-1; j > itemIndex; j--){
+			Node_3 temp = parent.disconnectChid(j);
+			parent.connectChild(j+1, temp);
+		}
+		
+		parent.connectChild(itemIndex+1, newRight);
+		newRight.insertItem(itemC);
+		newRight.connectChild(0, child2);
+		newRight.connectChild(1, child3);
 	}
 }
 
