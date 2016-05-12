@@ -1,6 +1,5 @@
 package model;
 
-import javax.xml.crypto.Data;
 
 public class Node_3 {
 	public static final int ORDER = 4;
@@ -25,7 +24,7 @@ public class Node_3 {
 	 *@param the number of the child 
 	 *@returns Node_3 tempNode to be disconnected
 	 * */
-	public Node_3 disconnectChid(int childNum){
+	public Node_3 disconnectChild(int childNum){
 		Node_3 tempNode = childArray[childNum];
 		childArray[childNum] = null;
 		return tempNode;
@@ -102,7 +101,7 @@ public class Node_3 {
 		numItems++;
 		int newKey = newItem.dData;
 		
-		for (int i = ORDER -2; i > 0; i--) {
+		for (int i = ORDER -2; i >= 0; i--) {
 			if(itemArray[i] == null)
 				continue;
 			else {
@@ -134,10 +133,24 @@ public class Node_3 {
 	 * Display the node
 	 * */
 	public void diplayNode(){
-		for (int i = 0; i < numItems; i++) 
+		String result = "{";
+		for (int i = 0; i < numItems; i++) {
 			itemArray[i].displayItem();
+		}
 		System.out.println("/");
+	}
 	
+	/* */
+	public String toString(){
+		String result = "{";
+		for (int i = 0; i < numItems; i++) {
+			if(i < numItems -1)
+				result += itemArray[i].dData+ ",";
+			else {
+				result += itemArray[i].dData;
+			}
+		}
+		return result += "}";
 	}
 }
 
