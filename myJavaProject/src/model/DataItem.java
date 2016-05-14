@@ -11,6 +11,13 @@ public class DataItem {
 	}
 	
 	/**
+	 * Returns the key of the item
+	 * */
+	public int getKey(){
+		return dData;
+	}
+	
+	/**
 	 * Displays the dataItem
 	 * */
 	public void displayItem(){
