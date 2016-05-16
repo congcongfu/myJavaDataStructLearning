@@ -18,6 +18,13 @@ public class DataItem {
 	}
 	
 	/**
+	 * Sets the key of the DataItem
+	 * *
+	 */
+	public void setKey(int key){
+		dData = key;
+	}
+	/**
 	 * Displays the dataItem
 	 * */
 	public void displayItem(){
