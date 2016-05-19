@@ -1,6 +1,7 @@
 package impl;
 
 import interfaces.GraphInterface;
+import model.StackX;
 import model.Vertex;
 
 public class Graph implements GraphInterface {
@@ -9,6 +10,7 @@ public class Graph implements GraphInterface {
 	private Vertex vertexList[];
 	private int adjMat[][];
 	private int number;
+	private StackX stack;
 	
 	/**
 	 * Create a new Graph all element is 0
@@ -22,6 +24,7 @@ public class Graph implements GraphInterface {
 				adjMat[i][k] = 0;
 			}
 		}
+		stack = new StackX();
 	}
 	
 	/**
@@ -59,6 +62,29 @@ public class Graph implements GraphInterface {
 			if(adjMat[v][i] == 1 && vertexList[i].wasVisited == false)
 				return i;                  //return first such vertex
 		return -1;							//no such vertices
+	}
+	
+	/**
+	 * depth first search
+	 * */
+	public void depthFirst(){
+		vertexList[0].wasVisited = true;
+		displayVertex(0);
+		stack.push(0);
+		
+		while ( !stack.isEmpty()) {
+			int x = getAdjUnvisitedVertex( stack.peek());
+			if( x == -1)
+				stack.pop();
+			else {
+				vertexList[x].wasVisited = true;
+				displayVertex(x);
+				stack.push(x);
+			}
+		}
+		//stack is empty so we're done
+		for(int i = 0; i < number; i++)
+			vertexList[i].wasVisited = false;
 	}
 
 }
