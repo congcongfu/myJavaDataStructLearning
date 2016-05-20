@@ -1,6 +1,7 @@
 package impl;
 
 import interfaces.GraphInterface;
+import model.PriorityQueue;
 import model.Queue;
 import model.StackX;
 import model.Vertex;
@@ -14,6 +15,10 @@ public class Graph implements GraphInterface {
 	private char sortedArray[];
 	private StackX stack;
 	private Queue queue;
+	
+	private int currentVert;
+	private PriorityQueue priorityQueue;
+	private int nTree;
 	
 	/**
 	 * Create a new Graph all element is 0
@@ -30,6 +35,7 @@ public class Graph implements GraphInterface {
 		sortedArray = new char[MAX_VERTS];
 		stack = new StackX();
 		queue = new Queue();
+		priorityQueue = new PriorityQueue();
 	}
 	
 	/**
