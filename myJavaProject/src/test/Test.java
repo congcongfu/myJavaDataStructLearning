@@ -10,12 +10,26 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import impl.ArrayHeap;
+import impl.ArrayQueue;
 import impl.LinkedList;
 import model.Sort;
 
 public class Test {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+		
+		Runnable task = () ->{
+			String threadName = Thread.currentThread().getName();
+			System.out.println("Hello " + threadName);
+		};
+		
+		task.run();
+		Thread thread = new Thread(task,"fuck hard");
+		Thread thread1 = new Thread(task,"really hard");
+		thread.start();
+		thread1.start();
+		System.out.println("Done!");
 		
 //		int [] array = { 7,4,3};
 //		Sort.mergeSort(array, 0, array.length-1);
@@ -32,6 +46,7 @@ public class Test {
 		return result;
 		
 	}
+	
 	
 }
 
