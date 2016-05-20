@@ -1,6 +1,7 @@
 package impl;
 
 import interfaces.GraphInterface;
+import model.Queue;
 import model.StackX;
 import model.Vertex;
 
@@ -10,7 +11,9 @@ public class Graph implements GraphInterface {
 	private Vertex vertexList[];
 	private int adjMat[][];
 	private int number;
+	private char sortedArray[];
 	private StackX stack;
+	private Queue queue;
 	
 	/**
 	 * Create a new Graph all element is 0
@@ -24,7 +27,9 @@ public class Graph implements GraphInterface {
 				adjMat[i][k] = 0;
 			}
 		}
+		sortedArray = new char[MAX_VERTS];
 		stack = new StackX();
+		queue = new Queue();
 	}
 	
 	/**
@@ -44,7 +49,7 @@ public class Graph implements GraphInterface {
 	@Override
 	public void addEdge(int start, int end) {
 		adjMat[start][end] = 1;
-		adjMat[end][start] = 1;
+//		adjMat[end][start] = 1;
 	}
 
 	/**
@@ -73,7 +78,10 @@ public class Graph implements GraphInterface {
 		stack.push(0);
 		
 		while ( !stack.isEmpty()) {
-			int x = getAdjUnvisitedVertex( stack.peek());
+			
+			int x = getAdjUnvisitedVertex(stack.peek());
+			System.out.println("peek= "+stack.peek());
+			System.out.println("x= "+x);
 			if( x == -1)
 				stack.pop();
 			else {
@@ -85,6 +93,133 @@ public class Graph implements GraphInterface {
 		//stack is empty so we're done
 		for(int i = 0; i < number; i++)
 			vertexList[i].wasVisited = false;
+	}
+	
+	/**
+	 * Breadth first search
+	 * 
+	 * */
+	public void breadthFirst(){
+		vertexList[0].wasVisited = true;
+		displayVertex(0);
+		queue.insert(0);
+		int temp;
+		
+		while( !queue.isEmpty()){
+			int v1 = queue.remove();
+			
+			while((temp = getAdjUnvisitedVertex(v1)) != -1){
+				System.out.println("temp= "+temp);
+				vertexList[temp].wasVisited = true;
+				displayVertex(temp);
+				queue.insert(temp);
+			}
+		}
+		for( int i = 0; i < number; i++)
+			vertexList[i].wasVisited = false;
+	}
+	
+	/**
+	 * minimum spanning tree (depth first)
+	 * */
+	public void ninimumSpanTree(){
+		vertexList[0].wasVisited = true;
+		stack.push(0);
+		
+		while(!stack.isEmpty()){
+			int currrentVertex = stack.peek();
+			int temp = getAdjUnvisitedVertex(currrentVertex);
+			if(temp == -1)
+				stack.pop();
+			else {
+				vertexList[temp].wasVisited = true;
+				stack.push(temp);
+				
+				displayVertex(currrentVertex);
+				displayVertex(temp);
+				System.out.println(" ");
+			}
+		}
+		
+		for(int i = 0; i < number; i++)
+			vertexList[i].wasVisited = false;
+	}
+	
+	/**
+	 * topological sort
+	 * */
+	public void topologicalSort(){
+		int orig_number = number;
+		while(number >0){
+			int currentVertex = noSuccessors();
+			if(currentVertex == -1){
+				System.err.println("ERROR: Graph has cycle");
+				return;
+			}
+			sortedArray[number -1] = vertexList[currentVertex].getLabel();
+			//insert vertex label in sorted array(start)
+			deleteVertext(currentVertex);
+		}
+		System.out.println("Toplogically sorted order: ");
+		for(int i = 0; i < orig_number; i++)
+			System.out.println(sortedArray[i]);
+		System.out.println("");
+	}
+
+	
+
+	/**
+	 * Returns vert with no successors
+	 * (or -1 if no such verts)
+	 * */
+	private int noSuccessors() {
+		boolean isEdge;     //edge from row to column in adjmat
+		
+		for(int row = 0; row < number; row++){
+			isEdge = false;
+			for(int column = 0; column < number; column++){
+				int data = adjMat[row][column];
+				if(data > 0){
+					isEdge = true;
+					break;
+				}
+			}
+			if(!isEdge)
+				return row;
+		}
+		return -1;
+	}
+
+	/**
+	 * Delete vert
+	 * @param vert to be deleted
+	 * */
+	private void deleteVertext(int vert) {
+		if(vert != number - 1){
+			for(int i = vert; i < number-1; i++)
+				vertexList[i] = vertexList[i+1];  
+			for(int row = vert; row < number -1; row++)
+				moveRowUp(row,number);      //delete row from adjMat
+			for(int column = vert; column < number -1; column++)
+				movecolumnLeft(column, number-1);
+		}
+		number--;
+	}
+
+	/**
+	 * delete row from adjMat
+	 * */
+	private void moveRowUp(int row, int length) {
+		for(int columnn = 0; columnn <length; columnn++)
+			adjMat[row][columnn] = adjMat[row+1][columnn];
+	}
+	
+	/**
+	 * delete column from adjMat
+	 * */
+	private void movecolumnLeft(int columnn, int length) {
+		for(int row = 0; row < length; row++)
+			adjMat[row][columnn] = adjMat[row][columnn+1];
 	}
 
 }
