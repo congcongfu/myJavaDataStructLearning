@@ -132,6 +132,27 @@ public class Heap {
 		System.out.println("\n"+dots+dots);
 	}
 	
+	public void displayArray(){
+		for(int i = 0; i < maxSize; i++)
+			System.out.println(heapArray[i].getKey()+ " ");
+		System.out.println("");
+	}
+	
+	/**
+	 * Insert a item into the correct index of the heap
+	 * @param index of the heap to be insert
+	 * @param item to be inserted
+	 * */
+	public void insertAt(int index, DataItem newItem){
+		heapArray[index] = newItem;
+	}
+	
+	/**
+	 * Increase the size of heap
+	 * */
+	public void increaseSize(){
+		currentSize++;
+	}
 }
 
 

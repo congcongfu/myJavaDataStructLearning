@@ -15,15 +15,15 @@ public class TreeApp {
 	public static void main(String[] args) throws IOException {
 		int value;
 		Tree theTree = new Tree();
-		theTree.insert(50);
-		theTree.insert(40);
-		theTree.insert(60);
-		theTree.insert(30);
-		theTree.insert(70);
-		theTree.insert(100);
-		theTree.insert(80);
-		theTree.insert(90);
-		theTree.insert(20);
+		theTree.insert(1);
+		theTree.insert(11);
+		theTree.insert(21);
+		theTree.insert(31);
+		theTree.insert(41);
+		theTree.insert(51);
+		theTree.insert(61);
+		theTree.insert(71);
+		theTree.insert(81);
 		
 		while(true){
 			System.out.println("Enter first letter of show");

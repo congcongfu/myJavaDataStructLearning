@@ -1,6 +1,5 @@
 package model;
 
-import dataStruct.exception.EmptyCollectionException;
 
 /**
  * @author cong.fu @2016/03/20
@@ -30,7 +29,7 @@ public class PriorityQueue {
 			if(item.distance >= queueArray[i].distance)
 				break;
 		for (int k = count -1; k >= i; k--)
-			queueArray[k+1] = queueArray[k];
+			queueArray[k+1] = queueArray[k];            
 		queueArray[i] = item;
 		count++;
 	}
@@ -43,11 +42,7 @@ public class PriorityQueue {
 	 * Removes the minimum item in the queue
 	 * @returns the minimum item in the queue
 	 * */
-	public Edge removeMin()throws EmptyCollectionException{
-		if(isEmpty()){
-			System.out.println("The queue isEmpty");
-			throw new EmptyCollectionException("priorityQueue");
-		}
+	public Edge removeMin(){
 		return queueArray[--count];
 	}
 	
@@ -55,11 +50,7 @@ public class PriorityQueue {
 	 * Remove the item in the index of the queue
 	 * @param the index of the item to be remove
 	 * */
-	public void remove(int index)throws EmptyCollectionException {
-		if(isEmpty()){
-			System.out.println("The queue isEmpty");
-			throw new EmptyCollectionException("priorityQueue");
-		}
+	public void remove(int index){
 		for(int i = index; i < count -1; i++)
 			queueArray[i] = queueArray[i+1];
 		count--;
@@ -68,11 +59,7 @@ public class PriorityQueue {
 	/**
 	 * peek at item index
 	 * */
-	public Edge peek(int index)throws EmptyCollectionException{
-		if(isEmpty()){
-			System.out.println("The queue isEmpty");
-			throw new EmptyCollectionException("priorityQueue");
-		}
+	public Edge peek(int index){
 		return queueArray[index];
 	}
 	
@@ -82,10 +69,6 @@ public class PriorityQueue {
 	 * @returns  the index of the specified item in the queue 
 	 * */
 	public int find(int value){
-		if(isEmpty()){
-			System.out.println("The queue isEmpty");
-			throw new EmptyCollectionException("priorityQueue");
-		}
 		for(int i = 0; i < count; i++)
 			if(queueArray[i].endVert == value)
 				return i;

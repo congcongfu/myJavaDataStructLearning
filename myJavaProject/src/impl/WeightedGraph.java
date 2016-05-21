@@ -26,7 +26,7 @@ public class WeightedGraph {
 		number = 0;
 		for(int i = 0; i < MAX_VERTS; i++){
 			for(int k = 0; k < MAX_VERTS; k++){
-				adjMat[i][k] = 0;
+				adjMat[i][k] = INFINITY;
 			}
 		}
 		priorityQueue = new PriorityQueue();
@@ -45,9 +45,9 @@ public class WeightedGraph {
 	 * @param start to represents the position of of the vertex
 	 * @param end to represents the position of of the vertex
 	 * */
-	public void addEdge(int start, int end) {
-		adjMat[start][end] = 1;
-		adjMat[end][start] = 1;
+	public void addEdge(int start, int end,int weight) {
+		adjMat[start][end] = weight;
+		adjMat[end][start] = weight;
 	}
 
 	/**
