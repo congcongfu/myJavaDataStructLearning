@@ -22,6 +22,7 @@ public class DirectedGraphTest {
 		directedGraph.addEdge(4, 1, 50);
 		System.out.println("Shortest paths");
 		System.out.println(directedGraph.shortestPath());
+		directedGraph.displayPaths();
 	}
 
 }

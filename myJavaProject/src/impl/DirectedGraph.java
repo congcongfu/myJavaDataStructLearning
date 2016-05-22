@@ -1,6 +1,8 @@
 package impl;
 
 
+import java.util.Stack;
+
 import model.DistanceParent;
 import model.Vertex;
 
@@ -132,7 +134,7 @@ public class DirectedGraph {
 	/**
 	 * Display the Graph
 	 * */
-	private void displayPaths() {
+	public void displayPaths() {
 		System.out.println();
 		for(int i = 0; i < number; i++){
 			System.out.println(vertexList[i].getLabel()+"=");
@@ -151,10 +153,23 @@ public class DirectedGraph {
 	 * @returns String
 	 * */
 	public String shortestPath(){
+		Stack<String> stack = new Stack<>();
 		path();
 		String result = "{";
 		for (int i = 0; i < number; i++) {
+			int pa = sPath[i].getParentVert();
+			
+			while (pa != 0) {
+				pa = sPath[pa].getParentVert();
+				stack.push(vertexList[pa].getLabel());
+			}
+			while(!stack.isEmpty()){
+				result += "("+stack.pop()+")-->";
+
+			}
+			
 			String parent = vertexList[sPath[i].getParentVert()].getLabel();
+			
 			if(i > 0){
 				result += "("+parent+")-->";
 			}
