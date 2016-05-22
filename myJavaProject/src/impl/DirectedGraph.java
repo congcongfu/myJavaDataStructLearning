@@ -54,7 +54,7 @@ public class DirectedGraph {
 	/***
 	 * transfer row of distances from adjMat to sPath
 	 * */
-	public void path(){
+	private void path(){
 		
 		int startTree = 0;
 		vertexList[startTree].wasVisited = true;
@@ -135,6 +135,7 @@ public class DirectedGraph {
 	 * Display the Graph
 	 * */
 	public void displayPaths() {
+		path();
 		System.out.println();
 		for(int i = 0; i < number; i++){
 			System.out.println(vertexList[i].getLabel()+"=");

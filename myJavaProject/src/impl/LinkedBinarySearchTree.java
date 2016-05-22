@@ -1,9 +1,7 @@
 package impl;
 
-import java.awt.geom.CubicCurve2D;
 import java.util.Iterator;
 
-import javax.xml.soap.Node;
 
 import dataStruct.exception.ElemenNotFoundException;
 import dataStruct.exception.EmptyCollectionException;
@@ -35,7 +33,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 	@Override
 	public T getRootElements() {
 		// TODO Auto-generated method stub
-		return null;
+		return root.getElement();
 	}
 
 	/***

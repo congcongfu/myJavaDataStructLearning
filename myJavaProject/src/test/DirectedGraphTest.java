@@ -11,6 +11,7 @@ public class DirectedGraphTest {
 		directedGraph.addVertex("ShangHai");
 		directedGraph.addVertex("BeiJing");
 		directedGraph.addVertex("DaLian");
+		directedGraph.addVertex("Tianjing");
 		
 		directedGraph.addEdge(0,1,50);
 		directedGraph.addEdge(0,3,80);
@@ -20,9 +21,9 @@ public class DirectedGraphTest {
 		directedGraph.addEdge(3,2,20);
 		directedGraph.addEdge(3,4,70);
 		directedGraph.addEdge(4, 1, 50);
+		directedGraph.addEdge(3, 5, 10);
 		System.out.println("Shortest paths");
 		System.out.println(directedGraph.shortestPath());
-		directedGraph.displayPaths();
 	}
 
 }
