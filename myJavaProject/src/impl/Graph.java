@@ -12,7 +12,7 @@ public class Graph implements GraphInterface {
 	private Vertex vertexList[];
 	private int adjMat[][];
 	private int number;
-	private char sortedArray[];
+	private String sortedArray[];
 	private StackX stack;
 	private Queue queue;
 	
@@ -32,7 +32,7 @@ public class Graph implements GraphInterface {
 				adjMat[i][k] = 0;
 			}
 		}
-		sortedArray = new char[MAX_VERTS];
+		sortedArray = new String[MAX_VERTS];
 		stack = new StackX();
 		queue = new Queue();
 		priorityQueue = new PriorityQueue();
@@ -40,10 +40,10 @@ public class Graph implements GraphInterface {
 	
 	/**
 	 * add vertex
-	 * @param char
+	 * @param String
 	 * */
 	@Override
-	public void addVertex(char lab) {
+	public void addVertex(String lab) {
 		vertexList[number++] = new Vertex(lab);
 	}
 

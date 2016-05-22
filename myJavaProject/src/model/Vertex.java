@@ -2,19 +2,19 @@ package model;
 
 public class Vertex {
 
-	private char label;
+	private String label;
 	public boolean wasVisited;
 	
-	public Vertex(char lab){
-		setLabel(lab);
+	public Vertex(String lab){
+		this.label = lab;
 		wasVisited = false;
 	}
 
-	public char getLabel() {
+	public String getLabel() {
 		return label;
 	}
 
-	private void setLabel(char label) {
+	private void setLabel(String label) {
 		this.label = label;
 	}
 }

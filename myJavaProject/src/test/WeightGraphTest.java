@@ -6,12 +6,12 @@ public class WeightGraphTest {
 
 	public static void main(String[] args) {
 		WeightedGraph weightedGraph = new WeightedGraph();
-		weightedGraph.addVertex('A');
-		weightedGraph.addVertex('B');
-		weightedGraph.addVertex('C');
-		weightedGraph.addVertex('D');
-		weightedGraph.addVertex('E');
-		weightedGraph.addVertex('F');
+		weightedGraph.addVertex("A");
+		weightedGraph.addVertex("B");
+		weightedGraph.addVertex("C");
+		weightedGraph.addVertex("D");
+		weightedGraph.addVertex("E");
+		weightedGraph.addVertex("F");
 		
 		weightedGraph.addEdge(0, 1, 6);
 		weightedGraph.addEdge(0, 3, 4);

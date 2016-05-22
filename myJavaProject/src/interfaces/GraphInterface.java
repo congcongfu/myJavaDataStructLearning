@@ -6,7 +6,7 @@ public interface GraphInterface {
 	 * add vertex
 	 * @param char
 	 * */
-	public void addVertex(char lab);
+	public void addVertex(String lab);
 	
 	/**
 	 * add edge
@@ -23,6 +23,7 @@ public interface GraphInterface {
 	
 	// returns an unvisited vertex adjacent to v
 	public int getAdjUnvisitedVertex(int v);
+
 	
 }
 

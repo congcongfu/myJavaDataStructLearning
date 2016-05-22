@@ -34,9 +34,9 @@ public class WeightedGraph {
 	
 	/**
 	 * add vertex
-	 * @param char
+	 * @param String
 	 * */
-	public void addVertex(char lab) {
+	public void addVertex(String lab) {
 		vertexList[number++] = new Vertex(lab);
 	}
 
@@ -100,6 +100,10 @@ public class WeightedGraph {
 			vertexList[i].wasVisited = false;
 	}
 
+	/**
+	 * use prime
+	 * 
+	 * */
 	private void putInPQ(int vert, int distance) {
 
 		int queueIndex = priorityQueue.find(vert);
