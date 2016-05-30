@@ -91,7 +91,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTreeADT<T> {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Finds the first element that matches the specified target element from the binary search tree
 	 * and returns a reference to it. Throws an ElementNotFoundExcption if the specified target
