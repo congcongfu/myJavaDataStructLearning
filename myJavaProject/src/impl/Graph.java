@@ -86,8 +86,6 @@ public class Graph implements GraphInterface {
 		while ( !stack.isEmpty()) {
 			
 			int x = getAdjUnvisitedVertex(stack.peek());
-			System.out.println("peek= "+stack.peek());
-			System.out.println("x= "+x);
 			if( x == -1)
 				stack.pop();
 			else {
@@ -101,6 +99,29 @@ public class Graph implements GraphInterface {
 			vertexList[i].wasVisited = false;
 	}
 	
+	private int find(int v){
+		for(int i = 0; i< number;i++){
+			if(adjMat[v][i] == 1 && vertexList[i].wasVisited == false){
+				return i;
+			}
+			
+		}
+		return -1;
+	}
+	
+	public void dfs(){
+		vertexList[0].wasVisited = true;
+		stack.push(0);
+		if(!stack.isEmpty()){
+			int x = find(stack.peek());
+			if( x == -1 ){
+				stack.pop();
+			}else {
+				vertexList[x].wasVisited = true;
+				stack.push(x);
+			}
+		}
+	}
 	/**
 	 * Breadth first search
 	 * 
@@ -115,7 +136,6 @@ public class Graph implements GraphInterface {
 			int v1 = queue.remove();
 			
 			while((temp = getAdjUnvisitedVertex(v1)) != -1){
-				System.out.println("temp= "+temp);
 				vertexList[temp].wasVisited = true;
 				displayVertex(temp);
 				queue.insert(temp);
@@ -123,6 +143,25 @@ public class Graph implements GraphInterface {
 		}
 		for( int i = 0; i < number; i++)
 			vertexList[i].wasVisited = false;
+	}
+	
+	public String brs(){
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(vertexList[0].getLabel());
+		queue.insert(0);
+		while (!queue.isEmpty()) {
+			int v = queue.remove() ;
+			int temp;
+			while((temp = getAdjUnvisitedVertex(v)) != -1){
+				vertexList[temp].wasVisited = true;
+				stringBuilder.append(vertexList[temp].getLabel());
+				queue.insert(temp);
+			}
+		}
+		for( int i = 0; i < number; i++)
+			vertexList[i].wasVisited = false;
+	
+		return stringBuilder.toString();
 	}
 	
 	/**
