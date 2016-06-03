@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.naming.spi.DirStateFactory.Result;
+import javax.security.auth.kerberos.KerberosKey;
+
 import org.omg.CORBA.StringHolder;
 
 import test.stackTest;
@@ -15,8 +18,9 @@ import test.stackTest;
 public class CharAndArrayExecise {
 
 	public static void main(String[] args) {
-		String string = "asjfjfjwekgjjfsjfsjfsjfdgnmvvetsdf";
-		int a = lengthOfLongestSubstringTwoDistict(string);
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		result = aCombine(5, 3);
+		System.out.println("hello");
 	}
 
 	/**
@@ -208,10 +212,188 @@ public class CharAndArrayExecise {
 		return max;
 	}
 	
+	/*********************************************/
+	/**
+	 * Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has properties:
+	 *
+	 *1) Integers in each row are sorted from left to right. 2) 
+	 *The first integer of each row is greater than the last integer of the previous row.
+	 *[
+	 *	  [1,   3,  5,  7],
+	 *	  [10, 11, 16, 20],
+	 *	  [23, 30, 34, 50]
+	 *	]
+	 * */
+	public static int[] searchMatrix(int[][] matrix, int targetNumber){
+		int[] a = new int[2];
+		int row = matrix.length;
+		int column = matrix[0].length;
+		
+		int start = 0;
+		int end = row*column-1;
+		while(start <= end){
+			int mid = (start + end)/2;
+			int midX = mid / column;
+			int midY = mid % column;
+			if(matrix[midX][midY] == targetNumber){
+				a[0] = midX;
+				a[1] = midY;
+				return a;
+			}
+			if(matrix[midX][midY] < targetNumber){
+				start = mid+1;
+			}else{
+				end = mid -1;
+			}
+		}
+		return a;
+	}
+	
+	public static boolean travelMatrix(int[][] matrix, int targetNumber){
+		int row = matrix.length;
+		int column = matrix[0].length;
+		int start = 0;
+		int end = row * column-1;
+		
+		while(start < end){
+			int mid = (start + end) /2;
+			int midX = mid /column;
+			int midY = mid % column;
+			
+			if(matrix[midX][midY] == targetNumber){
+				return true;
+			}
+			
+			if(matrix[midX][midY] < targetNumber ){
+				start = mid +1;
+			}else {
+				end = mid-1;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * You are given an n x n 2D matrix representing an image.
+	 *
+	 *	Rotate the image by 90 degrees (clockwise).
+     *
+	 *	Follow up:
+	 *	Could you do this in-place?
+	 * */
+	
+	public static int[][] rotateClockWise(int[][] matrix){
+		int n = matrix.length;
+		for(int i = 0; i< n / 2; i++){
+			for(int j = 0; j < Math.ceil(((double)n/2));j++){
+				int temp = matrix[i][j];
+				matrix[i][j] = matrix[n-j-1][i];
+				matrix[n-j-1][i] = matrix[n-i-1][n-j-1];
+				matrix[n-i-1][n-j-1] = matrix[j][n-i-1];
+				matrix[j][n-i-1] = temp;
+			}
+		}
+		return matrix;
+	}
+	/**
+	 * 逆时针旋转矩阵
+	 * */
+	public static int[][] rotateUnClockWise(int[][] matrix){
+		int n = matrix.length;
+		for(int i = 0; i < n/2;i++){
+			for(int j = 0; i< Math.ceil(((double)n/2)); i++){
+				int temp = matrix[i][j];
+				matrix[i][j] = matrix[j][n-i-1];
+				matrix[j][n-i-1] = matrix[n-i-1][n-j-1];
+				matrix[n-i-1][n-j-1] = matrix[n-j-1][i];
+				matrix[n-j-1][i] = temp;
+			}
+		}
+		return matrix;
+	}
+	
+	/**
+	 * Given two integers n and k, 
+	 * return all possible combinations of k numbers out of 1 ... n.
+	 *	For example, if n = 4 and k = 2, a solution is:
+	 *[[2,4], [3,4], [2,3], [1,2], [1,3], [1,4],]
+	 * */
+	public static ArrayList<ArrayList<Integer>> combine(int n, int k){
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		List<Integer> numberList = new ArrayList<Integer>();
+		if(k > n){
+			return null;
+		}else if(k == n){
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			for(int i = 1; i <= k; i++){
+				temp.add(i);
+			}
+			result.add(temp);
+		}else if(k ==1){
+			for(int i =1; i<= n; i++){
+				ArrayList<Integer> temp = new ArrayList<Integer>();
+				temp.add(i);
+				result.add(temp);
+			}
+			return result;
+		}
+		for(int i = 1; i <= n -k+1; i++){
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			temp.add(i);
+			result.add(temp);
+		}
+		result = reCombine(result,n,k);
+		return result;
+	}
+	
+	public static ArrayList<ArrayList<Integer>> reCombine(ArrayList<ArrayList<Integer>> list, int n, int k){
+		ArrayList<ArrayList<Integer>> prevResult = new ArrayList<ArrayList<Integer>>();
+		prevResult.addAll(list);
+		if(list.get(0).size() == k) return list;
+		list.clear();
+		for(ArrayList<Integer> one : prevResult){
+			for(int i = 1; i <= n; i++){
+				if(i > one.get(one.size()-1)){
+					ArrayList<Integer> temp = new ArrayList<Integer>();
+					temp.addAll(one);
+					temp.add(i);
+					list.add(temp);
+				}
+			}
+		}
+		return reCombine(list, n, k);
+	}
+	
+	public static ArrayList<ArrayList<Integer>> aCombine(int n, int k){
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		if(k > n){
+			return null;
+		}if(k == n){
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			for (int i = 1; i <= n; i++) {
+				temp.add(i);
+			}
+			result.add(temp);
+		}if(k == 1){
+			for(int i = 1; i<= n; i++){
+				ArrayList<Integer> temp = new ArrayList<Integer>();
+				temp.add(i);
+				result.add(temp);
+			}
+		}else {
+			result = areCombine(n, k);
+		}
+		return result;
+	}
+	
+	public static ArrayList<ArrayList<Integer>> areCombine(int n, int k){
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		return result;
+	}
 }
 
 
-
+  
 
 
 

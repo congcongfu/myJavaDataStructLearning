@@ -6,8 +6,17 @@ import java.util.List;
 public class Exercises {
 
 	public static void main(String[] args) {
-		
-		wushu();
+		double[] a = getHight(100, 2);
+		System.out.println(a[0]);
+		System.out.println(a[1]);
+
+	}
+	
+	/**
+	 * 使用双目计算分数
+	 * */
+	public static String getScore(int N){
+		return  (N>90)?"A":(N>80?"B":(N>70)?"C":"D");
 	}
 	
 	/**
@@ -110,6 +119,27 @@ public class Exercises {
 		}
 		
 		return list;
+	}
+	
+	/**
+	 *  题目：一球从100米高度自由落下，每次落地后反跳回原高度的一半；
+	 *  再落下，求它在   第10次落地时，共经过多少米？第10次反弹多高？ 
+	 * */
+	public static double[] getHight(double hight, int times){
+		double route = 0;
+		double[] result = new double[2];
+		for(int i=1; i<= times; i++){
+			if(i==1){
+				route +=hight;
+			}else if(i >1) {
+				route += 2*hight;
+			}
+			
+			hight = hight/2;
+		}
+		result[0] = route;
+		result[1] = hight;
+		return result;
 	}
 
 }
